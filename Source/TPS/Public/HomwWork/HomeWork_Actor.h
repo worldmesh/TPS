@@ -32,9 +32,27 @@ public:
 		return Health;
 	}
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite)
+	float MaxTraceDistance = 500.0f;
+
+	UPROPERTY()
+	FTimerHandle TraceTimerHandle;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	FVector GetTraceLocation() const;
+
+	UFUNCTION(BlueprintImplementableEvent)
+	void NotifyActor(AActor* Actor);
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	bool TraceForPhysicsBody(AActor*& HitActor, UPrimitiveComponent*& HitComponent);
+
+	void OnTimerTick();
+
 
 private:	
 	// Called every frame
