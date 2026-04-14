@@ -6,6 +6,9 @@
 #include "Components/ActorComponent.h"
 #include "TPSWeaponComponent.generated.h"
 
+class ATPSBaseWeaponGame;
+class ATPSBaseCharacter;
+
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class TPS_API UTPSWeaponComponent : public UActorComponent
@@ -14,23 +17,48 @@ class TPS_API UTPSWeaponComponent : public UActorComponent
 
 	/*METHODS*/
 public:	
-	// Sets default values for this component's properties
 	UTPSWeaponComponent();
 
+	UFUNCTION()
+	void InitWeaponComponent();
+	
+	UFUNCTION()
+	void StartFire();
+
+	UFUNCTION()
+	void StopFire();
+
+	UFUNCTION()
+	void Reload();
+
+	UFUNCTION()
+	void NextWeapon();
+
 protected:
-	// Called when the game starts
 	virtual void BeginPlay() override;
 
+	UFUNCTION()
+	void EquipWeapon();
+
+	UFUNCTION()
+	void AttachWeaponToSocket();
+
 private:	
-	// Called every frame
+
+	UFUNCTION()
+	void SpawnWeapon();
+
 
 	/*PROPERTIES*/
 
 public:
-
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "TPS|Weapons")
+	ATPSBaseWeaponGame* CurrentWeapon = nullptr;
 
 protected:
-
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	ATPSBaseCharacter* Owner;
 
 private:
 

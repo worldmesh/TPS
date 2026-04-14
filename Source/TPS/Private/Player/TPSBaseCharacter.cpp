@@ -1,14 +1,11 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Player/TPSBaseCharacter.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
-// Sets default values
 ATPSBaseCharacter::ATPSBaseCharacter()
 {
- 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
 	// Set size for collision capsule
 	GetCapsuleComponent()->InitCapsuleSize(42.f, 96.0f);
@@ -35,21 +32,30 @@ ATPSBaseCharacter::ATPSBaseCharacter()
 	HealthComponent = CreateDefaultSubobject<UTPSHealthComponent>(TEXT("HealthComponent"));
 }
 
-// Called when the game starts or when spawned
 void ATPSBaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	HealthComponent->InitHealthComponent();
+	HealthComponent->OnDeath.AddDynamic( this, &ATPSBaseCharacter::OnDeath );
+	HealthComponent->OnHealthChanged.AddDynamic( this, &ATPSBaseCharacter::HealthChanged );
 	
 }
 
-// Called every frame
-//void ATPSBaseCharacter::Tick(float DeltaTime)
-//{
-//	Super::Tick(DeltaTime);
-//
-//}
+void ATPSBaseCharacter::OnDeath()
+{
+	GetCharacterMovement()->DisableMovement();
+	GetCapsuleComponent()->SetCollisionResponseToAllChannels(ECollisionResponse::ECR_Ignore);
 
-// Called to bind functionality to input
+	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
+	GetMesh()->SetSimulatePhysics(true);
+}
+
+//
+void ATPSBaseCharacter::HealthChanged(float Health, float HealthDelta)
+{
+}
+
 void ATPSBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);

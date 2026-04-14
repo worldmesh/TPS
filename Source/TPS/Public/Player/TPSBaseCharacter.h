@@ -19,17 +19,19 @@ class TPS_API ATPSBaseCharacter : public ACharacter
 
 	/*METHODS*/
 public:
-	// Sets default values for this character's properties
 	ATPSBaseCharacter();
 
-	//virtual void Tick(float DeltaTime) override;
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
 
 protected:
-	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	UFUNCTION()
+	void OnDeath();
+
+	void HealthChanged(float Health, float HealthDelta);
 
 private:
 

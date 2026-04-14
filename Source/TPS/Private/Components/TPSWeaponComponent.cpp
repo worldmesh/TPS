@@ -1,26 +1,80 @@
-// Fill out your copyright notice in the Description page of Project Settings.
 
 
 #include "Components/TPSWeaponComponent.h"
+#include "Weapons/TPSBaseWeaponGame.h"
 
-// Sets default values for this component's properties
+DEFINE_LOG_CATEGORY_STATIC(LogTPSWeaponComponent, All, All)
+
+
 UTPSWeaponComponent::UTPSWeaponComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
 	PrimaryComponentTick.bCanEverTick = false;
 
-	// ...
 }
 
-
-// Called when the game starts
 void UTPSWeaponComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
-	// ...
-	
+}
+
+void UTPSWeaponComponent::InitWeaponComponent()
+{
+	/*Owner = Cast<ATPSBaseCharacter>(GetOwner());
+	if (!Owner)
+	{
+		UE_LOG(LogTPSWeaponComponent, Error, TEXT("WeaponComponent -> Owner not valid"));
+		return;
+	}
+	*/
+	SpawnWeapon();
+
+	EquipWeapon();
+
+}
+
+void UTPSWeaponComponent::StartFire()
+{
+	if (CurrentWeapon)
+	{
+		return;
+	}
+	CurrentWeapon->StartFire();
+}
+
+void UTPSWeaponComponent::StopFire()
+{
+	if (CurrentWeapon)
+	{
+		return;
+	}
+	CurrentWeapon->StopFire();
+}
+
+void UTPSWeaponComponent::Reload()
+{
+	if (CurrentWeapon)
+	{
+		return;
+	}
+	CurrentWeapon->Reload();
+}
+
+void UTPSWeaponComponent::NextWeapon()
+{
+}
+
+
+void UTPSWeaponComponent::EquipWeapon()
+{
+}
+
+void UTPSWeaponComponent::AttachWeaponToSocket()
+{
+}
+
+void UTPSWeaponComponent::SpawnWeapon()
+{
 }
 
 
