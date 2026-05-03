@@ -19,9 +19,6 @@ class UInputMappingContext;
 DECLARE_LOG_CATEGORY_EXTERN(LogPlayerCharacter, Log, All);
 
 
-/**
- * 
- */
 UCLASS()
 class TPS_API ATPSPlayerCharacter : public ATPSBaseCharacter
 {
@@ -43,9 +40,7 @@ protected:
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-	/** Input Mapping Contexts */
-	UPROPERTY(EditAnywhere, Category = "Input|Input Mappings")
-	TArray<UInputMappingContext*> DefaultMappingContexts;
+	void Zoom(bool bIsZooming);
 
 
 private:
@@ -71,6 +66,14 @@ protected:
 	/** Mouse Look Input Action */
 	UPROPERTY(EditAnywhere, Category = "TPS|Input")
 	UInputAction* MouseLookAction;
+
+	/** Mouse Zoom Input Action */
+	UPROPERTY(EditAnywhere, Category = "TPS|Input")
+	UInputAction* ZoomAction;
+
+	/** Input Mapping Contexts */
+	UPROPERTY(EditAnywhere, Category = "Input|Input Mappings")
+	TArray<UInputMappingContext*> DefaultMappingContexts;
 
 private:
 

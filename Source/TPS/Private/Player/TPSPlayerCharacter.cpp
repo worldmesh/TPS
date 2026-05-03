@@ -80,10 +80,29 @@ void ATPSPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 
 		// Looking
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ATPSPlayerCharacter::Look);
+
+		// Zooming
+		EnhancedInputComponent->BindAction(ZoomAction, ETriggerEvent::Started, this, &ATPSPlayerCharacter::Zoom, true);
+		EnhancedInputComponent->BindAction(ZoomAction, ETriggerEvent::Completed , this, &ATPSPlayerCharacter::Zoom, false);
 	}
 	else
 	{
 		UE_LOG(LogPlayerCharacter, Error, TEXT("'%s' Failed to find an Enhanced Input component! This template is built to use the Enhanced Input system. If you intend to use the legacy system, then you will need to update this C++ file."), *GetNameSafe(this));
+	}
+}
+
+
+void ATPSPlayerCharacter::Zoom(bool bIsZooming)
+{
+	if (bIsZooming)
+	{
+		bUseControllerRotationYaw = true;
+		FollowCamera->SetFieldOfView(60.0f);
+	}
+	else
+	{
+		bUseControllerRotationYaw = true;
+		FollowCamera->SetFieldOfView(90.0f);
 	}
 }
 
