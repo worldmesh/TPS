@@ -5,6 +5,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "EnhancedInputComponent.h"
+#include "Components/TPSWeaponComponent.h"
 
 
 
@@ -84,6 +85,14 @@ void ATPSPlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInput
 		// Zooming
 		EnhancedInputComponent->BindAction(ZoomAction, ETriggerEvent::Started, this, &ATPSPlayerCharacter::Zoom, true);
 		EnhancedInputComponent->BindAction(ZoomAction, ETriggerEvent::Completed , this, &ATPSPlayerCharacter::Zoom, false);
+
+
+		// Shooting
+		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Started, this, &ATPSPlayerCharacter::StartFire);
+		EnhancedInputComponent->BindAction(ShootAction, ETriggerEvent::Completed, this, &ATPSPlayerCharacter::StopFire);
+		
+		//NextWeapon
+		EnhancedInputComponent->BindAction(NextWeaponAction, ETriggerEvent::Started, this, &ATPSPlayerCharacter::NextWeapon);
 	}
 	else
 	{
@@ -106,3 +115,17 @@ void ATPSPlayerCharacter::Zoom(bool bIsZooming)
 	}
 }
 
+void ATPSPlayerCharacter::StartFire()
+{
+	WeaponComponent->StartFire();
+}
+
+void ATPSPlayerCharacter::StopFire()
+{
+	WeaponComponent->StopFire();
+}
+
+void ATPSPlayerCharacter::NextWeapon()
+{
+	WeaponComponent->NextWeapon();
+}

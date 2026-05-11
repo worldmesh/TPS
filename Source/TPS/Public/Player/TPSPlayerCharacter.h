@@ -42,6 +42,10 @@ protected:
 
 	void Zoom(bool bIsZooming);
 
+	void StartFire();
+	void StopFire();
+	void NextWeapon();
+
 
 private:
 
@@ -71,8 +75,16 @@ protected:
 	UPROPERTY(EditAnywhere, Category = "TPS|Input")
 	UInputAction* ZoomAction;
 
+	/** Mouse Shoot Input Action */
+	UPROPERTY(EditAnywhere, Category = "TPS|Input")
+	UInputAction* ShootAction;
+
+	/** Next Weapon Input Action */
+	UPROPERTY(EditAnywhere, Category = "TPS|Input")
+	UInputAction* NextWeaponAction;
+
 	/** Input Mapping Contexts */
-	UPROPERTY(EditAnywhere, Category = "Input|Input Mappings")
+	UPROPERTY(EditAnywhere, Category = "TPS|Input")
 	TArray<UInputMappingContext*> DefaultMappingContexts;
 
 private:

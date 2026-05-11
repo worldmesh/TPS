@@ -40,6 +40,8 @@ void ATPSBaseCharacter::BeginPlay()
 	HealthComponent->OnDeath.AddDynamic( this, &ATPSBaseCharacter::OnDeath );
 	HealthComponent->OnHealthChanged.AddDynamic( this, &ATPSBaseCharacter::HealthChanged );
 	
+	WeaponComponent->InitWeaponComponent();
+
 }
 
 void ATPSBaseCharacter::OnDeath()

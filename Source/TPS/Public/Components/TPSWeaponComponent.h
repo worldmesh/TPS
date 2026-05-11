@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "TPSWeaponComponent.generated.h"
 
+
 class ATPSBaseWeaponGame;
 class ATPSBaseCharacter;
 
@@ -38,10 +39,10 @@ protected:
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
-	void EquipWeapon();
+	void EquipWeapon(int32 WeaponIndex);
 
 	UFUNCTION()
-	void AttachWeaponToSocket();
+	void AttachWeaponToSocket(ATPSBaseWeaponGame* WeaponToEquip, FName SocketName);
 
 private:	
 
@@ -60,7 +61,21 @@ protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	ATPSBaseCharacter* Owner;
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "TPS|Weapons")
+	TArray<TSubclassOf<ATPSBaseWeaponGame>> WeaponClasses;
+
+	UPROPERTY(EditDefaultsOnly)
+	FName WeaponArmorySocketName = "WeaponArmorySocket";
+	
+	UPROPERTY(EditDefaultsOnly)
+	FName WeaponSocketName = "WeaponSocket";
+
+	UPROPERTY(BlueprintReadOnly)
+	TArray<ATPSBaseWeaponGame*> Weapons;
+
 private:
 
+	UPROPERTY()
+	int32 CurrentWeaponIndex = 0;
 		
 };

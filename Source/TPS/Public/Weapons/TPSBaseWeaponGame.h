@@ -33,11 +33,14 @@ protected:
 public:
 protected:
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "TPS|Component")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "TPS|Components")
 	USkeletalMeshComponent* WeaponMesh;
 
-	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "TPS|Weapon")
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "TPS|Weapons")
 	float TimeBetweenShots = 0.3f;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "TPS|Weapons")
+	FTimerHandle ShotTimerHandle;
 
 private:
 };

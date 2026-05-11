@@ -13,14 +13,27 @@ ATPSBaseWeaponGame::ATPSBaseWeaponGame()
 
 }
 
+void ATPSBaseWeaponGame::BeginPlay()
+{
+	Super::BeginPlay();
+	check(WeaponMesh);
+
+}
+
 void ATPSBaseWeaponGame::StartFire()
 {
+	GetWorldTimerManager().SetTimer(ShotTimerHandle, this, &ATPSBaseWeaponGame::MakeShot, TimeBetweenShots, true, -1.0f);
 }
 
 void ATPSBaseWeaponGame::StopFire()
 {
+	if (!IsValid(this))
+		return;
+	if (ShotTimerHandle.IsValid())
+	{
+		GetWorldTimerManager().ClearTimer(ShotTimerHandle);
+	}
 }
-
 void ATPSBaseWeaponGame::Reload()
 {
 }
@@ -41,11 +54,6 @@ bool ATPSBaseWeaponGame::IsClipEmpty() const
 
 void ATPSBaseWeaponGame::MakeShot()
 {
-}
-
-void ATPSBaseWeaponGame::BeginPlay()
-{
-	Super::BeginPlay();
-	
+	UE_LOG(LogTPSBaseWeapon, Warning, TEXT("Bam-bam"));
 }
 
