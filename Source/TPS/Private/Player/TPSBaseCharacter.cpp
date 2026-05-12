@@ -31,7 +31,7 @@ ATPSBaseCharacter::ATPSBaseCharacter()
 	WeaponComponent = CreateDefaultSubobject<UTPSWeaponComponent>(TEXT("WeaponComponent"));
 	HealthComponent = CreateDefaultSubobject<UTPSHealthComponent>(TEXT("HealthComponent"));
 }
-
+//
 void ATPSBaseCharacter::BeginPlay()
 {
 	Super::BeginPlay();
@@ -43,7 +43,7 @@ void ATPSBaseCharacter::BeginPlay()
 	WeaponComponent->InitWeaponComponent();
 
 }
-
+//
 void ATPSBaseCharacter::OnDeath()
 {
 	GetCharacterMovement()->DisableMovement();
@@ -52,15 +52,46 @@ void ATPSBaseCharacter::OnDeath()
 	GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	GetMesh()->SetSimulatePhysics(true);
 }
-
 //
 void ATPSBaseCharacter::HealthChanged(float Health, float HealthDelta)
 {
 }
-
+//
 void ATPSBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 }
+//
+bool ATPSBaseCharacter::GetAimPoint(FHitResult& HitResult, FVector& OutPoint, float MaxDistance) const
+{
+	APlayerController* lController = GetController<APlayerController>();
+	if (!lController)
+		return false;
 
+	FVector lViewLocation;
+	FRotator lViewRotation;
+	lController->GetPlayerViewPoint(lViewLocation, lViewRotation);
+
+	FVector lAimDirection = lViewRotation.Vector();
+	FVector lTraceEnd = lViewLocation + lAimDirection * MaxDistance;
+
+	FHitResult lHit;
+	FCollisionQueryParams lParams;
+	lParams.AddIgnoredActor(this);
+
+	if (GetWorld()->LineTraceSingleByChannel(lHit, lViewLocation, lTraceEnd, ECC_Visibility, lParams))
+	{
+		HitResult = lHit;
+		OutPoint = lHit.Location;
+		return true;
+	}
+
+	OutPoint = lTraceEnd;
+
+	/* Camera Trace */
+	//DrawDebugLine(GetWorld(), lViewLocation, OutPoint, FColor::Red, false, 1.0f, 0, 1.0f);
+
+	return true;
+
+}

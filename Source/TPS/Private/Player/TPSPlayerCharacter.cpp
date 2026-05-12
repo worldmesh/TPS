@@ -110,18 +110,20 @@ void ATPSPlayerCharacter::Zoom(bool bIsZooming)
 	}
 	else
 	{
-		bUseControllerRotationYaw = true;
+		bUseControllerRotationYaw = false;
 		FollowCamera->SetFieldOfView(90.0f);
 	}
 }
 
 void ATPSPlayerCharacter::StartFire()
 {
+	bUseControllerRotationYaw = true;
 	WeaponComponent->StartFire();
 }
 
 void ATPSPlayerCharacter::StopFire()
 {
+	bUseControllerRotationYaw = false;
 	WeaponComponent->StopFire();
 }
 

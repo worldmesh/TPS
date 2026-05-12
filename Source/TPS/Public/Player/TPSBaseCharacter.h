@@ -21,6 +21,9 @@ class TPS_API ATPSBaseCharacter : public ACharacter
 public:
 	ATPSBaseCharacter();
 
+	UFUNCTION(BlueprintCallable)
+	bool GetAimPoint(FHitResult& HitResult, FVector& OutPoint, float MaxDistance) const;
+
 
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
