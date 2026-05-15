@@ -70,7 +70,7 @@ protected:
 	bool ReloadInProgress = false;
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "TPS|Weapons")
-	FName MuzzleSocketName = "Muzzle";
+	FName MuzzleSocketName = "MuzzleFlash";
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "TPS|Weapons")
 	float TraceMaxDistance = 1000.0f;
