@@ -6,6 +6,7 @@
 #include "GameFramework/Character.h"
 #include "Components/TPSWeaponComponent.h"
 #include "Components/TPSHealthComponent.h"
+#include "BehaviorTree/BehaviorTree.h"
 
 #include "TPSBaseCharacter.generated.h"
 
@@ -42,6 +43,8 @@ private:
 
 public:
 
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly)
+	UBehaviorTree* BehaviorTreeAsset;
 
 protected:
 
