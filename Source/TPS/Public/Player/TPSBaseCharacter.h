@@ -37,6 +37,12 @@ protected:
 
 	void HealthChanged(float Health, float HealthDelta);
 
+	UFUNCTION(BlueprintCallable, BlueprintPure)
+	UTPSWeaponComponent* GetWeaponComponent() const
+	{
+		return WeaponComponent;
+	}
+
 private:
 
 	/*PROPERTIES*/

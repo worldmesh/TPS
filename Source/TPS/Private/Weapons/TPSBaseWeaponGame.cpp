@@ -27,7 +27,7 @@ void ATPSBaseWeaponGame::StartFire()
 {
 	if (ReloadInProgress || CurrentAmmo.Bullets == 0) return;
 
-	GetWorldTimerManager().SetTimer(ShotTimerHandle, this, &ATPSBaseWeaponGame::MakeShot, TimeBetweenShots, true, -1.0f);
+	GetWorldTimerManager().SetTimer(ShotTimerHandle, this, &ATPSBaseWeaponGame::MakeShot, TimeBetweenShots, true, 0.2f);
 }
 
 void ATPSBaseWeaponGame::StopFire()

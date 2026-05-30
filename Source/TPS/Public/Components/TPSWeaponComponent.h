@@ -23,10 +23,10 @@ public:
 	UFUNCTION()
 	void InitWeaponComponent();
 	
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void StartFire();
 
-	UFUNCTION()
+	UFUNCTION(BlueprintCallable)
 	void StopFire();
 
 	UFUNCTION()
